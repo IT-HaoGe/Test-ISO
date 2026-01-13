@@ -1,0 +1,44 @@
+name: Windows11_24H2_amd64
+
+on: workflow_dispatch
+# on: [push, pull_request]
+
+env:
+  Build_VERSION: '19045.6693'
+
+jobs:
+  Windows11_24H2_amd64:
+    runs-on: windows-latest
+
+    steps:
+    # 检出本仓库
+    - name: Checkout repository
+      uses: actions/checkout@v5
+
+    # 生成 FILE_NAME（避免重复写版本号）
+    - name: Build FILE_NAME
+      shell: cmd
+      run: |
+        echo FILE_NAME=Win11_%Build_VERSION%_amd64>>%GITHUB_ENV%
+
+    # 制作 ISO
+    - name: UUP dump WinISO
+      shell: cmd
+      run: |
+        cd /d %FILE_NAME%
+        dir
+        uup_download_windows.cmd
+
+    # 查看输出目录（调试用，可保留）
+    - name: List ISO files
+      shell: cmd
+      run: |
+        cd /d %FILE_NAME%
+        dir *.iso
+
+    # 直接上传 ISO 到 Artifacts（不压缩）
+    - name: Upload ISO artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ env.FILE_NAME }}
+        path: .\${{ env.FILE_NAME }}\*.iso
