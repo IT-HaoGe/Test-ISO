@@ -1,13 +1,13 @@
-name: Windows11_Canary_amd64
+name: Windows11_Dev_amd64
 
 on: workflow_dispatch
 # on: [push, pull_request]
 
 env:
-  Build_VERSION: '26200.7535'
+  Build_VERSION: '26220.7535'
 
 jobs:
-  Windows11_Canary_amd64:
+  Windows11_Dev_amd64:
     runs-on: windows-latest
 
     steps:
