@@ -40,23 +40,39 @@ jobs:
     - name: Calculate CRC32
       shell: pwsh
       run: |
+        Write-Host "Working directory before change:"
+        Get-Location
+
+        # 切换到 ISO 所在目录
+        Set-Location $env:FILE_NAME
+
+        Write-Host "Working directory after change:"
+        Get-Location
+
+        # 查找 ISO
         $iso = Get-ChildItem -Filter *.iso | Select-Object -First 1
-        
-        if (-not $iso) { 
-            Write-Error "Error: No ISO file found." 
-            exit 1 
+
+        if (-not $iso) {
+            Write-Error "Error: No ISO file found in $env:FILE_NAME"
+            exit 1
         }
+
         Write-Host "Target ISO: $($iso.Name)"
 
-        # 1. 计算 Hash (加上 | Out-String 解决数组报错)
+        # 使用 7-Zip 计算 CRC32
         $7zOutput = 7z h -scrcCRC32 $iso.Name | Out-String
 
-        # 2. 提取并转为小写
+        Write-Host "7-Zip output:"
+        Write-Host $7zOutput
+
+        # 提取 CRC32（for data: XXXXXXXX）
         if ($7zOutput -match 'for data:\s+([0-9A-F]{8})') {
             $crc = $matches[1].ToLower()
-            
+
             Write-Host "Calculated CRC32: $crc"
-            "CRC32=$crc" | Out-File -FilePath $env:GITHUB_ENV -Append
+
+            # 写入环境变量，供后续步骤使用
+            "CRC32=$crc" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
         } else {
             Write-Error "Error: Failed to parse CRC32 from 7-Zip output."
             exit 1
