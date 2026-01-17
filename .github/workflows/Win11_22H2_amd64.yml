@@ -7,7 +7,7 @@ env:
   Build_VERSION: '22621.6060'
 
 jobs:
-  Windows11_23H2_amd64:
+  Windows11_22H2_amd64:
     runs-on: windows-latest
 
     steps:
