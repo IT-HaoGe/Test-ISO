@@ -15,7 +15,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v5
 
-    # 生成 FILE_NAME（避免重复写版本号）
+    # 生成 FILE_NAME
     - name: Build FILE_NAME
       shell: cmd
       run: |
@@ -36,9 +36,51 @@ jobs:
         cd /d %FILE_NAME%
         dir *.iso
 
-    # 直接上传 ISO 到 Artifacts（不压缩）
+    # 计算 CRC32 校验值
+    - name: Calculate CRC32
+      shell: pwsh
+      run: |
+        Write-Host "Working directory before change:"
+        Get-Location
+
+        # 切换到 ISO 所在目录
+        Set-Location $env:FILE_NAME
+
+        Write-Host "Working directory after change:"
+        Get-Location
+
+        # 查找 ISO
+        $iso = Get-ChildItem -Filter *.iso | Select-Object -First 1
+
+        if (-not $iso) {
+            Write-Error "Error: No ISO file found in $env:FILE_NAME"
+            exit 1
+        }
+
+        Write-Host "Target ISO: $($iso.Name)"
+
+        # 使用 7-Zip 计算 CRC32
+        $7zOutput = 7z h -scrcCRC32 $iso.Name | Out-String
+
+        Write-Host "7-Zip output:"
+        Write-Host $7zOutput
+
+        # 提取 CRC32（for data: XXXXXXXX）
+        if ($7zOutput -match 'for data:\s+([0-9A-F]{8})') {
+            $crc = $matches[1].ToLower()
+
+            Write-Host "Calculated CRC32: $crc"
+
+            # 写入环境变量，供后续步骤使用
+            "CRC32=$crc" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+        } else {
+            Write-Error "Error: Failed to parse CRC32 from 7-Zip output."
+            exit 1
+        }
+
+    # 直接上传 ISO 到 Artifacts
     - name: Upload ISO artifact
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.FILE_NAME }}
+        name: ${{ env.FILE_NAME }}_${{env.CRC32}}
         path: .\${{ env.FILE_NAME }}\*.iso

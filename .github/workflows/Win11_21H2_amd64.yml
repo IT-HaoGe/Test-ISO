@@ -15,7 +15,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v5
 
-    # 生成 FILE_NAME（避免重复写版本号）
+    # 生成 FILE_NAME
     - name: Build FILE_NAME
       shell: cmd
       run: |
@@ -78,7 +78,7 @@ jobs:
             exit 1
         }
 
-    # 直接上传 ISO 到 Artifacts（不压缩）
+    # 直接上传 ISO 到 Artifacts
     - name: Upload ISO artifact
       uses: actions/upload-artifact@v4
       with:
