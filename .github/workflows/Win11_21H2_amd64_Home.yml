@@ -1,4 +1,4 @@
-name: Windows11_21H2_amd64
+name: Windows11_21H2_amd64_Home
 
 on: workflow_dispatch
 # on: [push, pull_request]
