@@ -1,5 +1,5 @@
 #!/bin/bash
-#Generated on 2026-01-23 16:47:14 GMT
+#Generated on 2026-01-28 05:41:07 GMT
 
 # Proxy configuration
 # If you need to configure a proxy to be able to connect to the internet,
