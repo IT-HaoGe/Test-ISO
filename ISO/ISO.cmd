@@ -162,15 +162,6 @@ echo.
 echo                                      Here is the list of files:
 echo %t%
 echo.
-for /f "tokens=2 delims=^|" %%a in ('type "%dir_temp%\list.txt"') do (
-	if exist %%a echo %%a && set "fnd=y"
-)
-if !fnd! NEQ y goto :limit
-echo.
-echo %r%
-echo.
-rd>nul /s /q "%dir_temp%"
-timeout>nul /t 10
 exit
 
 :tr
