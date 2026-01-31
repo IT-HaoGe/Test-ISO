@@ -1,0 +1,61 @@
+name: Build Official ISO
+
+on: workflow_dispatch
+# on: [push, pull_request]
+
+env:
+  ISO_DIR: ISO
+  ISO_NAME: 23H2_Arm64
+
+jobs:
+  build-iso:
+    runs-on: windows-latest
+    timeout-minutes: 360
+
+    steps:
+    # =========================
+    # Checkout
+    # =========================
+    - name: Checkout repository
+      uses: actions/checkout@v5
+
+    # =========================
+    # Environment Info
+    # =========================
+    - name: Show system info
+      shell: cmd
+      run: |
+        echo OS:
+        ver
+        echo.
+        echo Workspace:
+        echo %GITHUB_WORKSPACE%
+
+    # =========================
+    # Build ISO (核心步骤)
+    # =========================
+    - name: Build ISO via ISO.cmd
+      shell: cmd
+      run: |
+        cd /d "%GITHUB_WORKSPACE%\%ISO_DIR%"
+        echo Current dir:
+        cd
+        ISO.cmd
+
+    # =========================
+    # List ISO
+    # =========================
+    - name: List ISO files
+      shell: cmd
+      run: |
+        cd /d "%GITHUB_WORKSPACE%\%ISO_DIR%"
+        dir *.iso
+
+    # =========================
+    # Upload Artifact
+    # =========================
+    - name: Upload ISO artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ env.ISO_NAME }}
+        path: ISO\*.iso
