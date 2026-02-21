@@ -20,7 +20,7 @@ if exist "%~dp0bin\smv.exe" (set "smv=%~dp0bin\smv.exe") else (goto :DLBin)
 call :sup
 call :tr
 
-set "uuid=e425afa0-8d3c-e13d-a78a-1875c7c36ad6"
+set "uuid=9fd18468-c5d4-187f-eb02-136df221b5d0"
 set "key=free"
 
 if /i !key! EQU free call :free
