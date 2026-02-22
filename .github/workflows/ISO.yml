@@ -5,7 +5,7 @@ on: workflow_dispatch
 
 env:
   ISO_DIR: ISO
-  ISO_NAME: 23H2_Arm64
+  ISO_NAME: Windows
 
 jobs:
   build-iso:
