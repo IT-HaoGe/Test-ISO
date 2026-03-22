@@ -55,7 +55,7 @@ jobs:
     # Upload Artifact
     # =========================
     - name: Upload ISO artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: ${{ env.ISO_NAME }}
         path: ISO\*.iso
