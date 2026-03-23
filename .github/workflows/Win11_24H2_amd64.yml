@@ -5,6 +5,7 @@ on: workflow_dispatch
 
 env:
   Build_VERSION: '26100.8039'
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   Windows11_24H2_amd64:
@@ -80,7 +81,7 @@ jobs:
 
     # 直接上传 ISO 到 Artifacts
     - name: Upload ISO artifact
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ env.FILE_NAME }}_${{env.CRC32}}
         path: .\${{ env.FILE_NAME }}\*.iso
