@@ -4,8 +4,7 @@ on: workflow_dispatch
 # on: [push, pull_request]
 
 env:
-  Build_VERSION: '26100.8039'
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  Build_VERSION: '26100.8166'
 
 jobs:
   Windows11_24H2_amd64:
