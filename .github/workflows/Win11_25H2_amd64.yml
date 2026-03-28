@@ -21,6 +21,14 @@ jobs:
       run: |
         echo FILE_NAME=Win11_%Build_VERSION%_amd64>>%GITHUB_ENV%
 
+    - name: Download UUP
+      run: |
+        curl -L -o uup.zip "https://uupdump.net/get.php?id=53ce30e4-9971-4a02-9cf1-3dee642ccd17&pack=zh-cn&edition=professional%3Bcorecountryspecific%3Bcore"
+
+    - name: Extract
+      run: |
+        7z x uup.zip -o%FILE_NAME%
+
     # 制作 ISO
     - name: UUP dump WinISO
       shell: cmd
