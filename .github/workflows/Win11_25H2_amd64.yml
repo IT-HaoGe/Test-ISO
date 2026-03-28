@@ -23,7 +23,7 @@ jobs:
 
     - name: Download UUP
       run: |
-        curl -L -o uup.zip "https://uupdump.net/get.php?id=53ce30e4-9971-4a02-9cf1-3dee642ccd17&pack=zh-cn&edition=professional%3Bcorecountryspecific%3Bcore"
+        curl -L -o uup.zip "https://raw.githubusercontent.com/IT-HaoGe/Test-ISO/refs/heads/main/UUP/25H2.zip"
 
     - name: Extract
       run: |
