@@ -21,6 +21,15 @@ jobs:
       run: |
         echo FILE_NAME=Win10_%Build_VERSION%_amd64>>%GITHUB_ENV%
 
+    - name: Debug files
+      shell: cmd
+      run: |
+        echo FILE_NAME=%FILE_NAME%
+        cd
+        dir
+        dir %FILE_NAME%
+        dir %FILE_NAME% /s
+
     # 制作 ISO
     - name: UUP dump WinISO
       shell: cmd
