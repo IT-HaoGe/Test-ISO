@@ -13,7 +13,7 @@ jobs:
     steps:
     # 检出本仓库
     - name: Checkout repository
-      uses: actions/checkout@v5
+      uses: actions/checkout@v4
 
     # 生成 FILE_NAME
     - name: Build FILE_NAME
@@ -21,13 +21,15 @@ jobs:
       run: |
         echo FILE_NAME=Win11_%Build_VERSION%_amd64>>%GITHUB_ENV%
 
-    - name: Download UUP
+    - name: Debug files
+      shell: cmd
       run: |
-        curl -L -o uup.zip "https://raw.githubusercontent.com/IT-HaoGe/Test-ISO/refs/heads/main/UUP/25H2.zip"
+        echo FILE_NAME=%FILE_NAME%
+        cd
+        dir
+        dir %FILE_NAME%
+        dir %FILE_NAME% /s
 
-    - name: Extract
-      run: |
-        7z x uup.zip -o%FILE_NAME%
 
     # 制作 ISO
     - name: UUP dump WinISO
@@ -36,6 +38,7 @@ jobs:
         cd /d %FILE_NAME%
         dir
         uup_download_windows.cmd
+
 
     # 查看输出目录（调试用，可保留）
     - name: List ISO files
