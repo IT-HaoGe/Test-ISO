@@ -4,7 +4,7 @@ on: workflow_dispatch
 # on: [push, pull_request]
 
 env:
-  Build_VERSION: '22631.6783'
+  Build_VERSION: '22631.6936'
 
 jobs:
   Windows11_23H2_amd64:
