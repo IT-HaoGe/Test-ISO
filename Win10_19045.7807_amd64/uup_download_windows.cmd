@@ -1,5 +1,5 @@
 @echo off
-:: Generated on 2026-09-16 01:37:12 GMT
+:: Generated on 2026-10-14 03:28:23 GMT
 
 :: Proxy configuration
 :: If you need to configure a proxy to be able to connect to the internet,
@@ -52,7 +52,7 @@ SETLOCAL DISABLEDELAYEDEXPANSION
 goto :EOF
 
 :START_PROCESS
-title 19045.7727_amd64_zh-cn_multi_f2a3c168 download
+title 19045.7807_amd64_zh-cn_multi_a1cc2d84 download
 
 set "aria2=files\aria2c.exe"
 set "a7z=files\7zr.exe"
@@ -79,7 +79,7 @@ echo.
 
 :DOWNLOAD_UUPS
 echo Retrieving aria2 script for the UUP set...
-"%aria2%" --no-conf --async-dns=false --console-log-level=warn --log-level=info --log="aria2_download.log" -o"%aria2Script%" --allow-overwrite=true --auto-file-renaming=false "https://uupdump.net/get.php?id=f2a3c168-f4ea-4b8c-9ec7-ff42e1d78ab4&pack=zh-cn&edition=core%%3Bcorecountryspecific%%3Bprofessional&aria2=2"
+"%aria2%" --no-conf --async-dns=false --console-log-level=warn --log-level=info --log="aria2_download.log" -o"%aria2Script%" --allow-overwrite=true --auto-file-renaming=false "https://uupdump.net/get.php?id=a1cc2d84-9a8e-41eb-bf5a-b95045621fc0&pack=zh-cn&edition=core%%3Bcorecountryspecific%%3Bprofessional&aria2=2"
 if %ERRORLEVEL% GTR 0 call :DOWNLOAD_ERROR & exit /b 1
 echo.
 

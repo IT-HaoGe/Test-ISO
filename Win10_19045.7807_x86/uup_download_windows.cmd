@@ -1,5 +1,5 @@
 @echo off
-:: Generated on 2026-09-23 07:24:59 GMT
+:: Generated on 2026-10-14 03:28:34 GMT
 
 :: Proxy configuration
 :: If you need to configure a proxy to be able to connect to the internet,
@@ -52,7 +52,7 @@ SETLOCAL DISABLEDELAYEDEXPANSION
 goto :EOF
 
 :START_PROCESS
-title 26100.9550_amd64_zh-cn_multi_4d7d34d3 download
+title 19045.7807_x86_zh-cn_multi_744a0a32 download
 
 set "aria2=files\aria2c.exe"
 set "a7z=files\7zr.exe"
@@ -77,29 +77,9 @@ echo Extracting UUP converter...
 "%a7z%" -x!ConvertConfig.ini -x!CustomAppsList.txt -y x "%uupConv%" >NUL
 echo.
 
-:DOWNLOAD_APPS
-echo Retrieving aria2 script for Microsoft Store Apps...
-"%aria2%" --no-conf --async-dns=false --console-log-level=warn --log-level=info --log="aria2_download.log" -o"%aria2Script%" --allow-overwrite=true --auto-file-renaming=false "https://uupdump.net/get.php?id=4d7d34d3-3732-4ad2-a9d9-ca0adf6a4730&pack=neutral&edition=app&aria2=2"
-if %ERRORLEVEL% GTR 0 call :DOWNLOAD_ERROR & exit /b 1
-echo.
-
-for /F "tokens=2 delims=:" %%i in ('findstr #UUPDUMP_ERROR: "%aria2Script%"') do set DETECTED_ERROR=%%i
-if NOT [%DETECTED_ERROR%] == [] (
-    echo Unable to retrieve data from Windows Update servers. Reason: %DETECTED_ERROR%
-    echo If this problem persists, most likely the set you are attempting to download was removed from Windows Update servers.
-    echo.
-    pause
-    goto :EOF
-)
-
-echo Downloading Microsoft Store Apps...
-"%aria2%" --no-conf --async-dns=false --console-log-level=warn --log-level=info --log="aria2_download.log" -x16 -s16 -j25 -c -R -d"%destDir%" -i"%aria2Script%"
-if %ERRORLEVEL% GTR 0 goto :DOWNLOAD_APPS
-echo.
-
 :DOWNLOAD_UUPS
 echo Retrieving aria2 script for the UUP set...
-"%aria2%" --no-conf --async-dns=false --console-log-level=warn --log-level=info --log="aria2_download.log" -o"%aria2Script%" --allow-overwrite=true --auto-file-renaming=false "https://uupdump.net/get.php?id=4d7d34d3-3732-4ad2-a9d9-ca0adf6a4730&pack=zh-cn&edition=core%%3Bcorecountryspecific%%3Bprofessional&aria2=2"
+"%aria2%" --no-conf --async-dns=false --console-log-level=warn --log-level=info --log="aria2_download.log" -o"%aria2Script%" --allow-overwrite=true --auto-file-renaming=false "https://uupdump.net/get.php?id=744a0a32-7509-4748-a5ad-9a441f7569c5&pack=zh-cn&edition=core%%3Bcorecountryspecific%%3Bprofessional&aria2=2"
 if %ERRORLEVEL% GTR 0 call :DOWNLOAD_ERROR & exit /b 1
 echo.
 
